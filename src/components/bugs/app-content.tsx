@@ -15,6 +15,7 @@ import { BugFormDialog } from "@/components/bugs/bug-form-dialog"
 import { CommandPalette } from "@/components/bugs/command-palette"
 import { ShortcutsHelpDialog } from "@/components/bugs/shortcuts-help-dialog"
 import { NotificationBell } from "@/components/bugs/notification-bell"
+import { Breadcrumb } from "@/components/bugs/breadcrumb"
 import { AppFooter } from "@/components/bugs/app-footer"
 import { useBugStore } from "@/store/bug-store"
 import { useLabels } from "@/hooks/use-bugs"
@@ -155,6 +156,7 @@ export function AppContent() {
         {/* Scrollable content area + sticky footer */}
         <main className="flex-1 overflow-y-auto scrollbar-thin">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+            <Breadcrumb />
             {renderView()}
           </div>
           <AppFooter />

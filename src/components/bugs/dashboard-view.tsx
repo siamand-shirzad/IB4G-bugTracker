@@ -40,7 +40,6 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
 import { EmptyState } from "@/components/bugs/empty-state"
-import { GlobalActivityFeed } from "@/components/bugs/global-activity-feed"
 import { StatusBadge } from "@/components/bugs/status-badge"
 import { PriorityBadge } from "@/components/bugs/priority-badge"
 import { StageBadge } from "@/components/bugs/stage-badge"
@@ -504,11 +503,8 @@ export function DashboardView() {
         </CardContent>
       </Card>
 
-      {/* Global activity feed + Platform breakdown */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <GlobalActivityFeed limit={15} />
-        <PlatformBreakdownCard stats={stats} loading={isLoading} />
-      </div>
+      {/* Platform breakdown */}
+      <PlatformBreakdownCard stats={stats} loading={isLoading} />
 
       {/* Assignee workload + Resolution time */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

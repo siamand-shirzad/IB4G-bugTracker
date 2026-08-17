@@ -6,8 +6,6 @@ import {
   Bug as BugIcon,
   Command as CommandIcon,
   Moon,
-  PanelLeftClose,
-  PanelLeftOpen,
   Sun,
 } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
@@ -46,41 +44,41 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
     <aside
       className={cn(
         "flex flex-col h-full bg-sidebar border-r border-sidebar-border transition-[width] duration-200 ease-out",
-        collapsed ? "w-[56px]" : "w-[220px]",
+        collapsed ? "w-[52px]" : "w-[200px]",
       )}
     >
       {/* Brand */}
-      <div className="h-14 flex items-center gap-2.5 px-3 shrink-0">
-        <div className="h-7 w-7 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-          <BugIcon className="h-4 w-4" />
+      <div className="h-12 flex items-center gap-2 px-3 shrink-0">
+        <div className="h-6 w-6 rounded-md bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+          <BugIcon className="h-3.5 w-3.5" />
         </div>
         {!collapsed && (
-          <span className="text-sm font-semibold tracking-tight">{APP_NAME}</span>
+          <span className="text-[13px] font-semibold tracking-tight">{APP_NAME}</span>
         )}
       </div>
 
       {/* Command trigger */}
-      <div className="px-2 shrink-0">
+      <div className="px-1.5 shrink-0 mb-1">
         <button
           onClick={openCommandPalette}
           title={collapsed ? "⌘K" : undefined}
           className={cn(
-            "w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors border border-sidebar-border",
+            "w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-[11px] text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
             collapsed && "justify-center",
           )}
         >
           <CommandIcon className="h-3.5 w-3.5 shrink-0" />
           {!collapsed && (
             <>
-              <span className="flex-1 text-left">Search…</span>
-              <kbd className="text-[9px] font-mono opacity-60">⌘K</kbd>
+              <span className="flex-1 text-left">Search</span>
+              <kbd className="text-[9px] font-mono opacity-50">⌘K</kbd>
             </>
           )}
         </button>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-2 py-2 space-y-0.5 overflow-y-auto scrollbar-thin">
+      <nav className="flex-1 px-1.5 py-1 space-y-0.5 overflow-y-auto scrollbar-thin">
         {SIDEBAR_ITEMS.map((item) => {
           const Icon = item.icon
           const active = view === item.id
@@ -90,7 +88,7 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
               onClick={() => handleSelect(item.id)}
               title={collapsed ? item.label : undefined}
               className={cn(
-                "w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-colors",
+                "w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-[13px] font-medium transition-colors",
                 collapsed && "justify-center",
                 active
                   ? "bg-sidebar-accent text-sidebar-accent-foreground"
@@ -98,7 +96,7 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
               )}
             >
               <Icon className={cn("h-4 w-4 shrink-0", active && "text-primary")} />
-              {!collapsed && <span className="flex-1 text-left">{item.label}</span>}
+              {!collapsed && <span>{item.label}</span>}
             </button>
           )
         })}
@@ -107,26 +105,13 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
       <Separator className="bg-sidebar-border" />
 
       {/* Footer */}
-      <div className="p-2 shrink-0 space-y-1">
-        <div className={cn("flex items-center gap-1", collapsed ? "justify-center" : "justify-between")}>
+      <div className="p-1.5 shrink-0 flex flex-col gap-0.5">
+        <div className={cn("flex items-center", collapsed ? "flex-col gap-0.5" : "gap-1")}>
           <NotificationBell />
-          {!collapsed && (
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="h-8 w-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
-            >
-              {mounted ? (
-                theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />
-              ) : (
-                <Sun className="h-4 w-4" />
-              )}
-            </button>
-          )}
-        </div>
-        {collapsed && (
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="w-full flex items-center justify-center py-2 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+            title="Toggle theme"
+            className="h-8 w-8 flex items-center justify-center rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
           >
             {mounted ? (
               theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />
@@ -134,15 +119,22 @@ export function AppSidebar({ collapsed, onToggle, onNavigate, variant = "desktop
               <Sun className="h-4 w-4" />
             )}
           </button>
-        )}
-        {variant === "desktop" && (
+        </div>
+        {variant === "desktop" && !collapsed && (
           <button
             onClick={onToggle}
-            className={cn(
-              "w-full flex items-center justify-center py-2 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors",
-            )}
+            className="w-full flex items-center px-2 py-1.5 rounded-lg text-[11px] text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
           >
-            {collapsed ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+            Collapse
+          </button>
+        )}
+        {variant === "desktop" && collapsed && (
+          <button
+            onClick={onToggle}
+            title="Expand"
+            className="w-full flex items-center justify-center py-1.5 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+          >
+            <span className="text-[10px]">»</span>
           </button>
         )}
       </div>

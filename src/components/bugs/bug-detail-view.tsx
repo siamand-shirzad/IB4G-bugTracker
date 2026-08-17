@@ -17,7 +17,6 @@ import {
   GitBranch,
   Globe,
   Hammer,
-  History,
   Layers,
   ListChecks,
   Loader2,
@@ -67,10 +66,9 @@ import { StatusBadge } from "@/components/bugs/status-badge"
 import { PriorityBadge } from "@/components/bugs/priority-badge"
 import { StageBadge } from "@/components/bugs/stage-badge"
 import { LabelBadge } from "@/components/bugs/label-badge"
-import { ActivityTimeline } from "@/components/bugs/activity-timeline"
-import { CommentsSection } from "@/components/bugs/comments-section"
 import { RelatedBugsCard } from "@/components/bugs/related-bugs-card"
-import { useBug, useBugComments, useBugEvents, useDeleteBug, useUpdateBug } from "@/hooks/use-bugs"
+import { CommentsSection } from "@/components/bugs/comments-section"
+import { useBug, useBugComments, useDeleteBug, useUpdateBug } from "@/hooks/use-bugs"
 import { useBugStore } from "@/store/bug-store"
 import {
   PRIORITY_CONFIG,
@@ -90,7 +88,6 @@ export function BugDetailView() {
   const setView = useBugStore((s) => s.setView)
   const openEditForm = useBugStore((s) => s.openEditForm)
   const { data: bug, isLoading } = useBug(bugId)
-  const { data: events, isLoading: eventsLoading } = useBugEvents(bugId)
   const { data: commentsData } = useBugComments(bugId)
   const updateMut = useUpdateBug(bugId ?? "")
   const deleteMut = useDeleteBug()
@@ -624,26 +621,6 @@ export function BugDetailView() {
                 label="Bug ID"
                 value={<span className="font-mono text-[11px]">{bug.id}</span>}
               />
-            </CardContent>
-          </Card>
-
-          {/* Activity Timeline */}
-          <Card>
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-sm font-medium flex items-center gap-2">
-                  <History className="h-4 w-4 text-muted-foreground" />
-                  Activity
-                </CardTitle>
-                {events && events.length > 0 && (
-                  <span className="text-[10px] font-medium text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                    {events.length} event{events.length === 1 ? "" : "s"}
-                  </span>
-                )}
-              </div>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <ActivityTimeline events={events} isLoading={eventsLoading} />
             </CardContent>
           </Card>
 
