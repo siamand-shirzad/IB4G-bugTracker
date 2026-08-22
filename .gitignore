@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!/.env.example
+
+# database (SQLite lives outside git; migrations in prisma/migrations are the source of truth)
+db/*.db
+db/*.db-journal
+db/*.db.bak
 
 # vercel
 .vercel
@@ -50,5 +56,9 @@ test
 prompt
 
 server.log
+
+# generated downloads
+/download/
+
 # Skills directory
 /skills/

@@ -1,0 +1,35 @@
+# build context excludes — keep the image build small and hermetic
+.git
+node_modules
+.next
+out
+build
+coverage
+
+# local databases & backups (the container creates its own on the volume)
+db
+backups
+*.db
+*.db-journal
+*.db.bak
+
+# env files (compose supplies DATABASE_URL)
+.env*
+!.env.example
+
+# tooling / docs / scaffolding not needed at build time
+.zscripts
+.claude
+.z-ai-config
+examples
+mini-services
+tests
+download
+skills
+worklog.md
+dev.log
+server.log
+*.log
+docker-compose.yml
+Dockerfile
+.dockerignore

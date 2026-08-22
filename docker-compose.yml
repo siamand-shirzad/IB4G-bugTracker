@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    container_name: ib4g-bugtracker
+    ports:
+      - "3000:3000" # map to 80 on a VPS if this is the only site: "80:3000"
+    environment:
+      # Absolute path -> immune to Prisma's schema-relative SQLite path resolution.
+      DATABASE_URL: file:/app/data/custom.db
+    volumes:
+      - app-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  app-data:
